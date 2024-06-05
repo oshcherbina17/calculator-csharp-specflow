@@ -9,7 +9,6 @@ namespace CalculatorCsharpSpecflow.Steps
     [Binding]
     public class CalculatorSteps
     {
-
         private readonly CalculatorPage _calculatorPage;
 
         public CalculatorSteps(WindowsDriver<WindowsElement> driver)
@@ -17,16 +16,40 @@ namespace CalculatorCsharpSpecflow.Steps
             _calculatorPage = new CalculatorPage(driver);
         }
 
-        [When("Add (.*) and (.*)")]
-        public void WhenAddNumbers(int firstNum,int secondNum) {
+        [When("I add (.*) and (.*)")]
+        public void WhenIAddNumbers(int firstNum, int secondNum)
+        {
             _calculatorPage.Clear();
-            _calculatorPage.AddNumbers(firstNum,secondNum);
+            _calculatorPage.AddNumbers(firstNum, secondNum);
         }
-        
 
-        [Then("the result should (.*)")]
-        public void ThenTheResultShould(int expectedResult) {
-            Assert.AreEqual(_calculatorPage.GetResult(), expectedResult);
-        } 
+        [When("I subtract (.*) from (.*)")]
+        public void WhenISubtractNumbers(int firstNum, int secondNum)
+        {
+            _calculatorPage.Clear();
+            _calculatorPage.SubtractNumbers(secondNum, firstNum);
+        }
+
+        [When("I multiply (.*) and (.*)")]
+        public void WhenIMultiplyNumbers(int firstNum, int secondNum)
+        {
+            _calculatorPage.Clear();
+            _calculatorPage.MultiplyNumbers(firstNum, secondNum);
+        }
+
+        [When("I divide (.*) by (.*)")]
+        public void WhenIDivideNumbers(int firstNum, int secondNum)
+        {
+            _calculatorPage.Clear();
+            _calculatorPage.DivideNumbers(firstNum, secondNum);
+        }
+
+        [Then("the result should be (.*)")]
+        public void ThenTheResultShouldBe(int expectedResult)
+        {
+            int actualResult = _calculatorPage.GetResult();
+            TestContext.Progress.WriteLine($"Expected Result: {expectedResult}, Actual Result: {actualResult}");
+            Assert.AreEqual(expectedResult, actualResult);
+        }
     }
 }
